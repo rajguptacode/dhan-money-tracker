@@ -1245,7 +1245,35 @@ dialog.modal.is-sm { width: min(430px, calc(100vw - 28px)); }
 @page { size: A4; margin: 14mm; }
 
 @media print {
-  body { background: #fff; color: #111; }
+  :root, [data-theme="light"], [data-theme="dark"] {
+    color-scheme: light;
+    --bg: #ffffff;
+    --bg-deep: #ffffff;
+    --surface: #ffffff;
+    --surface-2: #f6f1e7;
+    --surface-3: #eee7d9;
+    --ink: #17251f;
+    --ink-2: #34463c;
+    --muted: #56675c;
+    --muted-2: #6a7a6f;
+    --line: #dcd2bf;
+    --line-soft: rgba(23, 37, 31, 0.09);
+    --line-strong: #c9bda6;
+    --emerald: #0b5c46;
+    --emerald-hover: #084a38;
+    --emerald-soft: #e3ece3;
+    --marigold: #d99b38;
+    --marigold-soft: #f6ead1;
+    --gold-ink: #86580f;
+    --terra: #b44b36;
+    --terra-soft: #f5e3dd;
+    --positive: #0b6b4f;
+    --negative: #a9422f;
+    --warning: #86580f;
+    --info: #2e6172;
+    --selection: #dce8cc;
+  }
+  html, body { background: #fff !important; color: #111; }
   .skip-link, .sidebar, .mobile-nav, .mobile-topbar, .toast-stack, .modal, .onboarding-modal,
   .modal-foot, .no-print, .head-actions, .filter-bar, .activity-toolbar, .view-tabs,
   .chip-row, .chart-tooltip, .btn, .icon-btn { display: none !important; }
@@ -1258,6 +1286,9 @@ dialog.modal.is-sm { width: min(430px, calc(100vw - 28px)); }
     break-inside: avoid;
   }
   .hero, .tax-summary, .accounts-hero { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  /* Keep bars and progress readable when the browser does not print backgrounds. */
+  .cash-bar:not(.is-zero), .legend-swatch, .rank-bar, .progress { border: 1px solid #5b655f; }
+  .rank-bar span, .progress-fill { border-right: 1px solid #33433a; box-sizing: border-box; }
   a { color: inherit; text-decoration: none; }
 }
 
@@ -1925,7 +1956,7 @@ dialog.modal.is-sm { width: min(430px, calc(100vw - 28px)); }
 .trend-svg-wrap { position: relative; margin-left: 0; }
 .trend-svg { width: 100%; height: 180px; display: block; overflow: visible; }
 .trend-labels { display: flex; justify-content: space-between; gap: 4px; margin-top: 4px; font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted); letter-spacing: 0.02em; }
-.trend-yaxis { display: flex; justify-content: space-between; position: absolute; left: 0; top: 0; bottom: 22px; width: 45px; font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted); pointer-events: none; }
+.trend-yaxis { display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; position: absolute; left: 0; top: 0; bottom: 22px; width: 45px; font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted); pointer-events: none; white-space: nowrap; }
 .trend-canvas { margin-left: 50px; }
 .trend-summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 8px; font-size: 0.73rem; color: var(--muted); }
 .trend-summary strong { color: var(--positive); font-weight: 700; }

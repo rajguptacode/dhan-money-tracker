@@ -1,24 +1,26 @@
 /* Dhan service worker — offline app shell.
-   Versioned cache; navigation is network-first with an offline shell fallback. */
-const CACHE = "dhan-shell-v5";
+   Versioned cache; navigation is network-first with an offline shell fallback.
+   Bump CACHE when the shell/fetch logic changes; bump the ?v= query in
+   index.html when the CSS or JS changes. */
+const CACHE = "dhan-shell-v9";
 
 const APP_SHELL = [
   "./",
   "index.html",
   "manifest.webmanifest",
-  "assets/css/styles.css",
-  "assets/js/core.js",
-  "assets/js/charts.js",
-  "assets/js/ui.js",
-  "assets/js/modals.js",
-  "assets/js/views-dashboard.js",
-  "assets/js/views-activity.js",
-  "assets/js/views-accounts.js",
-  "assets/js/views-plan.js",
-  "assets/js/views-tax.js",
-  "assets/js/views-reports.js",
-  "assets/js/views-settings.js",
-  "assets/js/app.js",
+  "assets/css/styles.css?v=8",
+  "assets/js/core.js?v=7",
+  "assets/js/charts.js?v=7",
+  "assets/js/ui.js?v=7",
+  "assets/js/modals.js?v=7",
+  "assets/js/views-dashboard.js?v=7",
+  "assets/js/views-activity.js?v=7",
+  "assets/js/views-accounts.js?v=7",
+  "assets/js/views-plan.js?v=7",
+  "assets/js/views-tax.js?v=7",
+  "assets/js/views-reports.js?v=7",
+  "assets/js/views-settings.js?v=7",
+  "assets/js/app.js?v=7",
   "assets/fonts/fraunces-latin.woff2",
   "assets/fonts/hanken-grotesk-latin.woff2",
   "assets/fonts/ibm-plex-mono-400.woff2",
@@ -63,7 +65,7 @@ self.addEventListener("fetch", (event) => {
   // to the cached shell when offline.
   if (request.mode === "navigate") {
     event.respondWith(
-      fetch(request)
+      fetch(request, { cache: "no-store" })
         .then((response) => {
           const copy = response.clone();
           caches.open(CACHE).then((cache) => cache.put("index.html", copy));
@@ -79,7 +81,7 @@ self.addEventListener("fetch", (event) => {
   // Static assets: serve from cache immediately, refresh in the background.
   event.respondWith(
     caches.match(request).then((cached) => {
-      const network = fetch(request)
+      const network = fetch(request, { cache: "reload" })
         .then((response) => {
           if (response && response.ok) {
             const copy = response.clone();

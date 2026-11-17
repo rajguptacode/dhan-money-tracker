@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Dhan — money, clearly.</title>
+  <meta name="description" content="A private-by-design money tracker for India. Track every rupee, plan goals like your next car, and keep an ITR-ready record — all in your browser.">
+  <meta name="theme-color" content="#F5F0E4" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#101A16" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light dark">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Dhan">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <script>
+    try {
+      var saved = JSON.parse(localStorage.getItem("dhan.state.v1") || "null");
+      var pref = saved && saved.settings && saved.settings.theme;
+      var dark = pref === "dark" || (pref !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+      document.documentElement.dataset.theme = dark ? "dark" : "light";
+    } catch (e) {}
+  </script>
+
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/icons/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+
+  <link rel="preload" href="assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <svg class="svg-sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+      <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+      <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+      <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+      <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5m6-7-7 7 7 7"/></symbol>
+      <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m-6-7 7 7-7 7"/></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></symbol>
+      <symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8z"/></symbol>
+      <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 20h16"/></symbol>
+      <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4m-5 5 5-5 5 5M4 20h16"/></symbol>
+      <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 14h10l1-14M10 11v6M14 11v6"/></symbol>
+      <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4 20h4L20 8l-4-4L4 16zM14 6l4 4"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 5 5L20 6"/></symbol>
+      <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2.5 20h19z"/><path d="M12 9v5M12 17.5v.1"/></symbol>
+      <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.1"/></symbol>
+      <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></symbol>
+      <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+      <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M3 3l18 18M10.5 6A9.8 9.8 0 0 1 12 5.9c6 0 9.5 6.1 9.5 6.1a17 17 0 0 1-3.7 4.3M6.3 6.8C3.9 8.6 2.5 12 2.5 12S6 18.1 12 18.1a9.8 9.8 0 0 0 4.2-.9"/><path d="M10 10a3 3 0 0 0 4 4"/></symbol>
+      <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 15.5A8.5 8.5 0 0 1 8.5 4 8.5 8.5 0 1 0 20 15.5Z"/></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 15v2"/></symbol>
+      <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M4 10a8 8 0 0 1 13.4-4.4L20 8M20 4v4h-4M20 14a8 8 0 0 1-13.4 4.4L4 16M4 20v-4h4"/></symbol>
+      <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+      <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h2"/></symbol>
+      <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.1 0l2.4-2.4a5 5 0 0 0-7.1-7.1L11 4.9"/><path d="M14 11a5 5 0 0 0-7.1 0l-2.4 2.4a5 5 0 0 0 7.1 7.1l1.4-1.4"/></symbol>
+      <symbol id="i-dots" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="19" cy="12" r="1.4"/></symbol>
+      <symbol id="i-swap" viewBox="0 0 24 24"><path d="M4 8h15l-3-3M20 16H5l3 3"/></symbol>
+      <symbol id="i-print" viewBox="0 0 24 24"><path d="M7 8V3h10v5M7 17H4V9h16v8h-3M7 14h10v7H7z"/><path d="M17 12h1"/></symbol>
+      <symbol id="i-smartphone" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M10 18h4"/></symbol>
+      <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+      <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5M8 13h8M8 17h5"/></symbol>
+      <symbol id="i-bowl" viewBox="0 0 24 24"><path d="M3.5 11h17a8.5 8.5 0 0 1-17 0Z"/><path d="M8 7.5c0-1 1-1.5 1-2.5M12 7.5c0-1 1-1.5 1-2.5M16 7.5c0-1 1-1.5 1-2.5M3 20h18"/></symbol>
+      <symbol id="i-basket" viewBox="0 0 24 24"><path d="M4 9h16l-2 11H6z"/><path d="m8 9 2-5M16 9l-2-5M9 13v3M15 13v3"/></symbol>
+      <symbol id="i-bus" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="13" rx="2"/><path d="M4 11h16M8 17v3M16 17v3"/><circle cx="8" cy="14" r="1"/><circle cx="16" cy="14" r="1"/></symbol>
+      <symbol id="i-fuel" viewBox="0 0 24 24"><path d="M7 21V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v16M5 21h12M7 9h8"/><path d="M15 8h2l2 3v7a2 2 0 0 1-4 0v-4"/></symbol>
+      <symbol id="i-house" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M9 21v-6h6v6"/></symbol>
+      <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M9 21v-6h6v6"/></symbol>
+      <symbol id="i-activity" viewBox="0 0 24 24"><path d="M3 12h3l2.5-7 4.5 14 3-7H21"/></symbol>
+      <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M10.5 18h3"/></symbol>
+      <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-9a4 4 0 0 1 7-2.5A4 4 0 0 1 19 11c0 4.6-7 9-7 9Z"/></symbol>
+      <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v18H6a2 2 0 0 1-2-2z"/><path d="M8 3v18M12 8h4M12 12h4"/></symbol>
+      <symbol id="i-bag" viewBox="0 0 24 24"><path d="M5 8h14l-1 13H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></symbol>
+      <symbol id="i-film" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 5v14M17 5v14M3 9h4M3 15h4M17 9h4M17 15h4"/></symbol>
+      <symbol id="i-plane" viewBox="0 0 24 24"><path d="m3 11 18-7-6 17-3-7-6-3Z"/><path d="m12 14 4-4"/></symbol>
+      <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/><circle cx="17.5" cy="9.5" r="2.5"/><path d="M15.5 20a5 5 0 0 1 5.5-4.7"/></symbol>
+      <symbol id="i-bank" viewBox="0 0 24 24"><path d="M3 9 12 3l9 6M5 10v9M9 10v9M15 10v9M19 10v9M3 21h18M3 19h18"/></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.5 3 7.5 7 10 4-2.5 7-5.5 7-10V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+      <symbol id="i-trend" viewBox="0 0 24 24"><path d="m3 17 6-6 4 4 7-8"/><path d="M15 7h5v5"/></symbol>
+      <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M5 3h14v18l-2.5-1.5L14 21l-2-1.5L10 21l-2.5-1.5L5 21z"/><path d="M8 8h8M8 12h8M8 16h5"/></symbol>
+      <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M3 12h18M12 8v13"/><path d="M12 8C9 8 7 6.5 7 4.5S9 2 10 3.5 12 8 12 8Zm0 0c3 0 5-1.5 5-3.5S15 2 14 3.5 12 8 12 8Z"/></symbol>
+      <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.5 6.5a4.5 4.5 0 0 0-6 5.8L3 17.8l3.2 3.2 5.5-5.5a4.5 4.5 0 0 0 5.8-6l-3 3-2.5-2.5z"/></symbol>
+      <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 12h18M10 12v3h4v-3"/></symbol>
+      <symbol id="i-laptop" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="11" rx="2"/><path d="M2 19h20M9 19l1-4M15 19l-1-4"/></symbol>
+      <symbol id="i-percent" viewBox="0 0 24 24"><path d="m5 19 14-14"/><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/></symbol>
+      <symbol id="i-rotate" viewBox="0 0 24 24"><path d="M4 10a8 8 0 0 1 13.5-4L20 8M20 4v4h-4"/><path d="M20 14A8 8 0 0 1 6.5 18L4 16M4 20v-4h4"/></symbol>
+      <symbol id="i-coins" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></symbol>
+      <symbol id="i-card" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h3"/></symbol>
+      <symbol id="i-car" viewBox="0 0 24 24"><path d="M4 16.5h16M5.5 16.5l1.2-5.2a2 2 0 0 1 2-1.6h6.6a2 2 0 0 1 2 1.6l1.2 5.2M6.5 16.5v2.5M17.5 16.5v2.5M7 13.5h10"/><circle cx="8.5" cy="14" r="1"/><circle cx="15.5" cy="14" r="1"/></symbol>
+      <symbol id="i-umbrella" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 1 9 9H3a9 9 0 0 1 9-9Z"/><path d="M12 12v6a2 2 0 0 0 4 0"/></symbol>
+      <symbol id="i-sheet" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M4 9h16M4 15h16M10 3v18M15 9v12"/></symbol>
+      <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="12" r="4"/><path d="M12 12h9M18 12v4M15 12v3"/></symbol>
+      <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18a4 4 0 0 1-.9-7.9A5.5 5.5 0 0 1 17 8.5a3.5 3.5 0 0 1 .5 7H7Z"/></symbol>
+      <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/><circle cx="12" cy="12" r="3.5"/></symbol>
+      <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M4 7.5A2.5 2.5 0 0 1 6.5 5H19a1 1 0 0 1 1 1v13H6.5A2.5 2.5 0 0 1 4 16.5z"/><path d="M4 8h14M15.5 12.5h2"/></symbol>
+      <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".8"/></symbol>
+      <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 20h18M6 20v-6M11 20V8M16 20v-9M21 20V5"/></symbol>
+      <symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 12h2M10 12h10M4 17h10M18 17h2"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="17" r="2"/></symbol>
+    </defs>
+  </svg>
+
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Primary navigation">
+      <a class="brand" href="#/dashboard" aria-label="Dhan — dashboard">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40"><rect width="40" height="40" rx="11" fill="var(--sidebar-brand-bg)"/><text x="9" y="29" font-family="Fraunces, Georgia, serif" font-size="27" font-weight="600" fill="var(--sidebar-brand-ink)">d</text><circle cx="29.5" cy="27.5" r="3" fill="var(--marigold)"/></svg>
+        </span>
+        <span class="brand-copy">
+          <span class="brand-name">dhan<span class="brand-dot">.</span></span>
+          <span class="brand-tag">MONEY, CLEARLY</span>
+        </span>
+      </a>
+
+      <button class="btn btn-primary sidebar-add" data-action="add-tx">
+        <svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg>
+        Add entry
+      </button>
+
+      <nav class="side-nav" id="side-nav">
+        <a class="nav-item" href="#/dashboard" data-nav="dashboard"><svg class="icon" aria-hidden="true"><use href="#i-home"></use></svg><span>Dashboard</span></a>
+        <a class="nav-item" href="#/activity" data-nav="activity"><svg class="icon" aria-hidden="true"><use href="#i-activity"></use></svg><span>Activity</span></a>
+        <a class="nav-item" href="#/accounts" data-nav="accounts"><svg class="icon" aria-hidden="true"><use href="#i-wallet"></use></svg><span>Accounts</span></a>
+        <a class="nav-item" href="#/goals" data-nav="plan"><svg class="icon" aria-hidden="true"><use href="#i-target"></use></svg><span>Plan</span></a>
+        <a class="nav-item" href="#/tax" data-nav="tax"><svg class="icon" aria-hidden="true"><use href="#i-receipt"></use></svg><span>Tax &amp; ITR</span></a>
+        <a class="nav-item" href="#/reports" data-nav="reports"><svg class="icon" aria-hidden="true"><use href="#i-chart"></use></svg><span>Reports</span></a>
+        <a class="nav-item" href="#/settings" data-nav="settings"><svg class="icon" aria-hidden="true"><use href="#i-settings"></use></svg><span>Settings</span></a>
+      </nav>
+
+      <div class="sidebar-foot">
+        <div class="side-rule" aria-hidden="true"><span>LEDGER · LOCAL FIRST</span></div>
+        <a class="profile-chip" href="#/settings" aria-label="Open settings">
+          <span class="avatar" id="side-avatar">R</span>
+          <span class="profile-meta">
+            <span class="profile-name" id="side-name">Your khata</span>
+            <span class="profile-sub">Only in this browser</span>
+          </span>
+          <svg class="icon" aria-hidden="true"><use href="#i-chevron-right"></use></svg>
+        </a>
+        <button class="theme-toggle" data-action="toggle-theme" aria-label="Switch theme">
+          <svg class="icon icon-sun" aria-hidden="true"><use href="#i-sun"></use></svg>
+          <svg class="icon icon-moon" aria-hidden="true"><use href="#i-moon"></use></svg>
+          <span id="theme-label">Light</span>
+        </button>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="mobile-topbar">
+        <a class="mobile-brand" href="#/dashboard" aria-label="Dhan — dashboard">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 40 40"><rect width="40" height="40" rx="11" fill="var(--sidebar-brand-bg)"/><text x="9" y="29" font-family="Fraunces, Georgia, serif" font-size="27" font-weight="600" fill="var(--sidebar-brand-ink)">d</text><circle cx="29.5" cy="27.5" r="3" fill="var(--marigold)"/></svg>
+          </span>
+          <span class="brand-name">dhan<span class="brand-dot">.</span></span>
+        </a>
+        <div class="mobile-top-actions">
+          <button class="icon-btn" data-action="toggle-theme" aria-label="Switch theme">
+            <svg class="icon icon-sun" aria-hidden="true"><use href="#i-sun"></use></svg>
+            <svg class="icon icon-moon" aria-hidden="true"><use href="#i-moon"></use></svg>
+          </button>
+          <a class="avatar avatar-sm" href="#/settings" id="mobile-avatar" aria-label="Open settings">R</a>
+        </div>
+      </header>
+
+      <main id="main" class="main" tabindex="-1">
+        <div class="boot-skeleton" aria-label="Loading your khata">
+          <div class="skel skel-title"></div>
+          <div class="skel skel-hero"></div>
+          <div class="skel-grid"><div class="skel skel-card"></div><div class="skel skel-card"></div></div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <nav class="mobile-nav" aria-label="Primary navigation">
+    <a href="#/dashboard" class="mnav-item" data-nav="dashboard"><svg class="icon" aria-hidden="true"><use href="#i-home"></use></svg><span>Home</span></a>
+    <a href="#/activity" class="mnav-item" data-nav="activity"><svg class="icon" aria-hidden="true"><use href="#i-activity"></use></svg><span>Activity</span></a>
+    <button class="mnav-add" data-action="add-tx" aria-label="Add entry">
+      <span class="mnav-add-circle"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></span>
+      <span>Add</span>
+    </button>
+    <a href="#/goals" class="mnav-item" data-nav="plan"><svg class="icon" aria-hidden="true"><use href="#i-target"></use></svg><span>Plan</span></a>
+    <button class="mnav-item" data-action="open-more" data-nav="more"><svg class="icon" aria-hidden="true"><use href="#i-dots"></use></svg><span>More</span></button>
+  </nav>
+
+  <div class="toast-stack" id="toasts" aria-live="polite" aria-atomic="false"></div>
+  <div class="modal-layer" id="modals"></div>
+  <div class="chart-tip" id="chart-tip" role="tooltip" hidden></div>
+  <div class="app-tooltip" id="app-tooltip" role="tooltip" hidden></div>
+
+  <noscript>
+    <div class="noscript-card">
+      <h2>Dhan needs JavaScript</h2>
+      <p>Your browser has JavaScript switched off. Turn it on to open your khata — all data still stays on this device.</p>
+    </div>
+  </noscript>
+
+  <script src="assets/js/core.js" defer></script>
+  <script src="assets/js/charts.js" defer></script>
+  <script src="assets/js/ui.js" defer></script>
+  <script src="assets/js/modals.js" defer></script>
+  <script src="assets/js/views-dashboard.js" defer></script>
+  <script src="assets/js/views-activity.js" defer></script>
+  <script src="assets/js/views-accounts.js" defer></script>
+  <script src="assets/js/views-plan.js" defer></script>
+  <script src="assets/js/views-tax.js" defer></script>
+  <script src="assets/js/views-reports.js" defer></script>
+  <script src="assets/js/views-settings.js" defer></script>
+  <script src="assets/js/app.js" defer></script>
+</body>
+</html>

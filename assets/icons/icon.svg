@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Dhan app icon">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#173F32"/>
+      <stop offset="1" stop-color="#0E2A21"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <rect x="18" y="18" width="476" height="476" rx="98" fill="none" stroke="#F5F0E4" stroke-opacity=".14" stroke-width="2"/>
+  <text x="82" y="382" font-family="Fraunces, Georgia, 'Times New Roman', serif" font-size="360" font-weight="600" fill="#F5F0E4">d</text>
+  <circle cx="390" cy="363" r="27" fill="#E9B949"/>
+</svg>
